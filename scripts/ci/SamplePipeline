@@ -7,10 +7,16 @@ pipeline {
             }
         }
         stage('Two') {
+
             steps {
                 echo 'Stage 2 executed'
+                input('Do you want to proceed?')
             }
         }
-
+        stage('Three') {
+            steps {
+                echo 'Stage 3 executed'
+            }
+        }
     }
 }
