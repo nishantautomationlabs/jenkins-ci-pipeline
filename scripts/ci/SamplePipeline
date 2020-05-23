@@ -4,17 +4,9 @@ pipeline {
     agent any
     stages {
         stage('Build Stage') {
-            jdk = tool 'JDK' //get path of JDK installation with the name Java8 in Global Tool Configuration
-            env.JAVA_HOME = jdk  //set JAVA_HOME environment variable
-            echo "jdk installation path is: ${jdk}"
-            logJavaVersion()
-            env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"  //add to PATH environment variable
-            mvnHome = tool 'MVN'  //get path of MVN installation with the name Maven in Global Tool Configuration
-            logMavenVersion()
             steps {
-
                 git "https://github.com/nishantautomationlabs/nal-junitmockito.git"
-                sh "mvn -U clean compile install -DskipTests"
+//                sh "mvn -U clean compile install -DskipTests"
                 echo 'Build Stage executed'
             }
         }
