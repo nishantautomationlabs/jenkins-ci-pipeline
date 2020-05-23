@@ -40,7 +40,7 @@ pipeline {
         stage("Custom Confirmation Check") {
             steps {
                 echo 'Run manual sign off and click proceed to go to deployment'
-                manualQaSignOff()
+                customConfirmationDialog()
             }
         }
         stage('Deployment stage') {
@@ -51,10 +51,10 @@ pipeline {
     }
 }
 
-private String manualQaSignOff() {
+private String customConfirmationDialog() {
 
     def userInput = input(
-            id: 'userInput', message: 'manual sign off?', ok: 'SIGN OFF!',
+            id: 'userInput', message: 'manual sign off?', ok: 'SIGN OFF',
             parameters: [
                     choice(name: 'QA sign off', choices: "Yes\nNo", description: 'All tests passed ? yes/no')
             ])
