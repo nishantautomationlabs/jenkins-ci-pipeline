@@ -2,11 +2,15 @@ def A = false
 def B = true
 pipeline {
     agent any
+    tools {
+        maven 'MVN'
+        jdk 'JDK'
+    }
     stages {
         stage('Build Stage') {
             steps {
                 git "https://github.com/nishantautomationlabs/nal-junitmockito.git"
-//                sh "mvn -U clean compile install -DskipTests"
+                sh "mvn -U clean compile install -DskipTests"
                 echo 'Build Stage executed'
             }
         }
