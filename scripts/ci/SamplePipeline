@@ -1,21 +1,38 @@
+def A = false
+def B = true
 pipeline {
     agent any
     stages {
-        stage('One') {
+        stage('Build Stage') {
             steps {
-                echo 'Stage 1 executed'
+                echo 'Build Stage executed'
             }
         }
-        stage('Two') {
-
+        stage('Master Stage'){
+            when{
+                branch 'master'
+            }
             steps {
-                echo 'Stage 2 executed'
+                echo 'run this stage only if its running on the master branch'
+            }
+        }
+        stage('Conditional Stage') {
+            when {
+                expression { return A || B }
+            }
+            steps {
+                echo 'Conditional stage executed'
+            }
+        }
+        stage('Manual Sign Off') {
+            steps {
+                echo 'Run manual sign off and click proceed to go to deployment'
                 input('Do you want to proceed?')
             }
         }
-        stage('Three') {
+        stage('Deployment stage') {
             steps {
-                echo 'Stage 3 executed'
+                echo 'Deployed the build successfully'
             }
         }
     }
