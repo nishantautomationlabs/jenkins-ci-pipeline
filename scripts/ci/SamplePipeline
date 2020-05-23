@@ -37,6 +37,12 @@ pipeline {
                 input('Do you want to proceed?')
             }
         }
+        stage("Custom Confirmation Check") {
+            steps {
+                echo 'Run manual sign off and click proceed to go to deployment'
+                manualQaSignOff()
+            }
+        }
         stage('Deployment stage') {
             steps {
                 echo 'Deployed the build successfully'
@@ -45,12 +51,16 @@ pipeline {
     }
 }
 
-private void logJavaVersion() {
-    println "using Java Version : "
-    sh "java -version"
-}
+private String manualQaSignOff() {
 
-private void logMavenVersion() {
-    println "using Maven Version : "
-    sh "mvn --version"
+    def userInput = input(
+            id: 'userInput', message: 'manual sign off?', ok: 'SIGN OFF!',
+            parameters: [
+                    choice(name: 'QA sign off', choices: "Yes\nNo", description: 'All tests passed ? yes/no')
+            ])
+
+    println " userInput manual QA choice ++++++++++++++++ :" + userInput
+
+    return userInput
+
 }
