@@ -5,7 +5,15 @@ pipeline {
     stages {
         stage('Build Stage') {
             steps {
+                git "https://github.com/nishantautomationlabs/nal-junitmockito.git"
+                sh "mvn -U clean compile install -DskipTests"
                 echo 'Build Stage executed'
+            }
+        }
+        stage('Unit Test Stage') {
+            steps {
+                sh "mvn test"
+                echo 'Unit Test Stage executed'
             }
         }
         stage('Master Stage'){
