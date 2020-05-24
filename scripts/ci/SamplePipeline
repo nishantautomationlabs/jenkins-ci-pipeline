@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Unit Test Stage') {
             steps {
-                sh "mvn test"
+                sh "mvn -Dtest=MockitoExampleTest test"
                 echo 'Unit Test Stage executed'
             }
         }
